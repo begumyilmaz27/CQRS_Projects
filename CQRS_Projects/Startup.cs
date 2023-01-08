@@ -1,6 +1,9 @@
+using CQRS_Projects.CQRS.Commands.StudentCommands;
 using CQRS_Projects.CQRS.Handlers.ProductHandlers;
+using CQRS_Projects.CQRS.Handlers.StudentHandlers;
 using CQRS_Projects.CQRS.Results.ProductResults;
 using CQRS_Projects.DAL.Context;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -27,9 +30,18 @@ namespace CQRS_Projects
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ProductContext>();
+
+            services.AddMediatR(typeof(Startup));
+
             services.AddScoped<GetProductByAccounterQueryHandler>();
             services.AddScoped<GetProductStoragerQueryHandler>();
             services.AddScoped<GetProductHumanResourceByIDQueryResult>();
+            services.AddScoped<CreateProductCommandHandler>();
+            services.AddScoped<CreateStudentCommandHandler>();
+            services.AddScoped<GetAllStudentQueryHandler>();
+            services.AddScoped<RemoveStudentCommandHandler>();
+            services.AddScoped<GetStudentByIDQueryHandler>();
+            services.AddScoped<UpdateStudentCommandHandler>();
 
             services.AddControllersWithViews();
         }
